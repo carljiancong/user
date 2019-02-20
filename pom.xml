@@ -24,7 +24,7 @@
             <url>http://10.10.102.101:8081/nexus/content/repositories/thirdparty/</url>
         </repository>
     </repositories>
-    
+
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>

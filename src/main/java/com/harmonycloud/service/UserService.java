@@ -8,8 +8,10 @@ import com.harmonycloud.repository.EncounterTypeRepository;
 import com.harmonycloud.repository.RoomRepository;
 import com.harmonycloud.repository.UserRepository;
 //import com.harmonycloud.result.CodeMsg;
+import com.harmonycloud.result.CodeMsg;
 import com.harmonycloud.result.Result;
 import com.harmonycloud.util.JwtUtil;
+import io.jsonwebtoken.Jwt;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -46,12 +48,12 @@ public class UserService {
             User user = userRepository.findByLoginName(loginname);
             if (user == null) {
                 logger.info("login failed.....can't find this user for loginname is {}", loginname);
-                return Result.buildError("Can't find this user",null);
+                return Result.buildError(CodeMsg.USER_NOT_EXIST);
             }
             logger.info("we user the username:{} find this user,its info is {}", loginname, user);
             if (!(StringUtil.EncoderByMd5(password).equals(user.getPassword()))) {
                 logger.info("login failed....password is wrong!");
-                return Result.buildError("Password is wrong",null);
+                return Result.buildError(CodeMsg.PASSWORD_ERROR);
             }
             logger.info("login successful.....");
             List<UserBo> userBos = userRepository.finduser(user.getUserId());
@@ -73,39 +75,38 @@ public class UserService {
 
         } catch (Exception e) {
             logger.error(e.getMessage());
+            return Result.buildError(CodeMsg.FAIL);
         }
-        return Result.buildError("Login failed",null);
     }
 
-    public List<Clinic> listclincs() {
+    public Result listclincs() {
         try {
-            return clinicRepository.findAll();
+            return Result.buildSuccess(clinicRepository.findAll());
         } catch (Exception e) {
             e.printStackTrace();
+            return Result.buildError(CodeMsg.FAIL);
         }
-        return null;
     }
 
-    public List<Room> listroom() {
+    public Result listroom() {
         try {
-            return roomRepository.findAll();
+            return Result.buildSuccess(roomRepository.findAll());
         } catch (Exception e) {
             e.printStackTrace();
+            return Result.buildError(CodeMsg.FAIL);
         }
-        return null;
     }
 
-    public List<EncounterType> listencountertype() {
+    public Result listencountertype() {
         try {
-            return encounterTypeRepository.findAll();
+             return Result.buildSuccess(encounterTypeRepository.findAll());
         } catch (Exception e) {
             e.printStackTrace();
+            return Result.buildError(CodeMsg.FAIL);
         }
-        return null;
     }
 
     public static void main(String[] args) {
 //        System.out.println(StringUtil.EncoderByMd5("vicky"));
-//        System.out.println();
     }
 }

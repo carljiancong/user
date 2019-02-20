@@ -1,5 +1,7 @@
 package com.harmonycloud.entity;
 
+import io.swagger.annotations.Api;
+
 import javax.persistence.*;
 
 
@@ -9,6 +11,7 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name = "cims_user")
+
 public class User {
     @Id
     private Integer userId;

@@ -57,9 +57,9 @@ public class JwtUtil {
 
         List<String> roles = new ArrayList<>();
         for (int i = 0; i < userRoles.size(); i++) {
-            if (userRoles.get(i).equals("Clerical staff")) {
+            if(userRoles.get(i).getUserRoleName().equals("Clerical staff")){
                 roles.add("ROLE_CLERICAL");
-            } else if (userRoles.get(i).equals("Clinical staff")) {
+            } else if (userRoles.get(i).getUserRoleName().equals("Clinical staff")) {
                 roles.add("ROLE_CLINICAL");
             } else {
                 roles.add("ROLE_ADMIN");

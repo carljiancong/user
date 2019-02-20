@@ -16,25 +16,32 @@ import java.io.Serializable;
 public class Result implements Serializable {
     private static final long serialVersionUID = 1L;
     @ApiModelProperty(value = "错误信息", example = "null")
-    private String errormessage;
+    private Object errorMessage;
     @ApiModelProperty(value = "是否成功", example = "true")
     private boolean success;
-//    @ApiModelProperty(value = "返回信息", )
     private Object data;
 
-    public Result(String errormessage, Object data, boolean success) {
-        this.errormessage = errormessage;
+
+    public Result(CodeMsg errorMessage, Boolean success) {
+        this.errorMessage = errorMessage.getMsg();
+        this.success = success;
+    }
+
+    public Result(Boolean success, Object data) {
         this.success = success;
         this.data = data;
     }
 
-
-    public String getErrormessage() {
-        return errormessage;
+    public static long getSerialVersionUID() {
+        return serialVersionUID;
     }
 
-    public void setErrormessage(String errormessage) {
-        this.errormessage = errormessage;
+    public Object getErrorMessage() {
+        return errorMessage;
+    }
+
+    public void setErrorMessage(Object errorMessage) {
+        this.errorMessage = errorMessage;
     }
 
     public boolean isSuccess() {
@@ -53,11 +60,12 @@ public class Result implements Serializable {
         this.data = data;
     }
 
-    public static Result buildError(String errormessage, Object errorData) {
-        return new Result(errormessage, errorData, false);
+    public static Result buildError(CodeMsg errorData){
+        return new Result(errorData,false);
     }
 
-    public static Result buildSuccess(Object data) {
-        return new Result(null, data, true);
+    public static Result buildSuccess(Object data){
+        return new Result(true, data);
     }
+
 }

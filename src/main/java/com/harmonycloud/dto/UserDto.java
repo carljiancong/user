@@ -2,13 +2,21 @@ package com.harmonycloud.dto;
 
 import com.harmonycloud.entity.AccessRight;
 import com.harmonycloud.entity.UserRole;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+
 
 import java.util.List;
 
+@ApiModel(value = "UserDto")
 public class UserDto {
+    @ApiModelProperty(value = "userid",example = "1")
     private Integer userId;
+    @ApiModelProperty(value = "englishSurname",example = "a")
     private String englishSurname;
+    @ApiModelProperty(value = "englishGivenName",example = "a")
     private String englishGivenName;
+    @ApiModelProperty(value = "loginName",example = "a")
     private String loginName;
     private List<UserRole> userRoles;
     private List<AccessRight> accessRights;
