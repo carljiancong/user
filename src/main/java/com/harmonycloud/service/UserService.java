@@ -1,15 +1,13 @@
 package com.harmonycloud.service;
 
 import com.harmonycloud.bo.UserBo;
-import com.harmonycloud.entity.Clinic;
-import com.harmonycloud.entity.EncounterType;
-import com.harmonycloud.entity.Room;
-import com.harmonycloud.entity.User;
+import com.harmonycloud.dto.UserDto;
+import com.harmonycloud.entity.*;
 import com.harmonycloud.repository.ClinicRepository;
 import com.harmonycloud.repository.EncounterTypeRepository;
 import com.harmonycloud.repository.RoomRepository;
 import com.harmonycloud.repository.UserRepository;
-import com.harmonycloud.result.CodeMsg;
+//import com.harmonycloud.result.CodeMsg;
 import com.harmonycloud.result.Result;
 import com.harmonycloud.util.JwtUtil;
 import org.slf4j.Logger;
@@ -18,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.harmonycloud.util.StringUtil;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -47,17 +46,27 @@ public class UserService {
             User user = userRepository.findByLoginName(loginname);
             if (user == null) {
                 logger.info("login failed.....can't find this user for loginname is {}", loginname);
-                return Result.buildError(CodeMsg.USER_NOT_EXIST);
+                return Result.buildError("Can't find this user",null);
             }
             logger.info("we user the username:{} find this user,its info is {}", loginname, user);
             if (!(StringUtil.EncoderByMd5(password).equals(user.getPassword()))) {
                 logger.info("login failed....password is wrong!");
-                return Result.buildError(CodeMsg.PASSWORD_ERROR);
+                return Result.buildError("Password is wrong",null);
             }
             logger.info("login successful.....");
-            UserBo userBo = userRepository.finduser(user.getUserId());
-            String token = jwtUtil.generateToken(userBo.getUserId(), userBo.getLoginName(), userBo.getRole());
-            result.put("user", userBo);
+            List<UserBo> userBos = userRepository.finduser(user.getUserId());
+            List<UserRole> userRoles = new ArrayList<UserRole>();
+            List<AccessRight> accessRights = new ArrayList<AccessRight>();
+
+            for (int i = 0; i < userBos.size(); i++) {
+                UserRole userRole = new UserRole(userBos.get(i).getRoleId(), userBos.get(i).getRoleName(),userBos.get(i).getUserRoleDesc(),userBos.get(i).getUserRoleStatus(), userBos.get(i).getClinicId());
+                userRoles.add(userRole);
+                AccessRight accessRight = new AccessRight(userBos.get(i).getAccessRightId(),userBos.get(i).getAccessRightType(),userBos.get(i).getAccessRightName());
+                accessRights.add(accessRight);
+            }
+            UserDto userDto = new UserDto(user.getUserId(),user.getEnglishSurname(),user.getEnglishGivenName(),user.getLoginName(),userRoles,accessRights);
+            String token = jwtUtil.generateToken(userDto.getUserId(),userDto.getLoginName(),userDto.getUserRoles());
+            result.put("user", userDto);
             result.put("token", token);
 
             return Result.buildSuccess(result);
@@ -65,7 +74,7 @@ public class UserService {
         } catch (Exception e) {
             logger.error(e.getMessage());
         }
-        return Result.buildError(CodeMsg.LOGIN_FAIL);
+        return Result.buildError("Login failed",null);
     }
 
     public List<Clinic> listclincs() {
@@ -96,6 +105,7 @@ public class UserService {
     }
 
     public static void main(String[] args) {
-        System.out.println(StringUtil.EncoderByMd5("vicky"));
+//        System.out.println(StringUtil.EncoderByMd5("vicky"));
+//        System.out.println();
     }
 }

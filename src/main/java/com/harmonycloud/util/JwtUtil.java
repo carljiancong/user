@@ -1,5 +1,7 @@
 package com.harmonycloud.util;
 
+import com.harmonycloud.entity.AccessRight;
+import com.harmonycloud.entity.UserRole;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import org.slf4j.Logger;
@@ -45,20 +47,23 @@ public class JwtUtil {
 
     }
 
-    public String generateToken(int userId,String loginName,String role) {
+    public String generateToken(int userId, String loginName, List<UserRole> userRoles) {
         Date now = new Date();
         Date expiryDate = new Date(now.getTime() + jwtExpirationInSec * 1000);
 
         HashMap<String, Object> claims = new HashMap<>();
         claims.put("userId", userId);
+        claims.put("loginname", loginName);
 
         List<String> roles = new ArrayList<>();
-        if (role.equals("staff")) {
-            roles.add("ROLE_STAFF");
-        } else if(role.equals("admin")){
-            roles.add("ROLE_ADMIN");
-        }else {
-            roles.add("ROLE_DOCTOR");
+        for (int i = 0; i < userRoles.size(); i++) {
+            if (userRoles.get(i).equals("Clerical staff")) {
+                roles.add("ROLE_CLERICAL");
+            } else if (userRoles.get(i).equals("Clinical staff")) {
+                roles.add("ROLE_CLINICAL");
+            } else {
+                roles.add("ROLE_ADMIN");
+            }
         }
         claims.put("roles", roles);
 

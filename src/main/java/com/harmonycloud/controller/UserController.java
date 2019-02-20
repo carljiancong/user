@@ -8,6 +8,7 @@ import com.harmonycloud.result.Result;
 import com.harmonycloud.service.UserService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -41,7 +42,8 @@ public class UserController {
     }
 
     @GetMapping(value = "/listclinic")
-    @ApiOperation(value = "user", httpMethod = "GET")
+
+    @ApiOperation(value = "user", response = Clinic.class, httpMethod = "GET")
     public List<Clinic> listclinic() {
         try {
             return userService.listclincs();
@@ -52,7 +54,7 @@ public class UserController {
     }
 
     @GetMapping(value = "/listencountertype")
-    @ApiOperation(value = "user", httpMethod = "GET")
+    @ApiOperation(value = "user", response = EncounterType.class, httpMethod = "GET")
     public List<EncounterType> listencountertype() {
         try {
             return userService.listencountertype();
@@ -63,7 +65,7 @@ public class UserController {
     }
 
     @GetMapping(value = "/listroom")
-    @ApiOperation(value = "user", httpMethod = "GET")
+    @ApiOperation(value = "user", response = Room.class, httpMethod = "GET")
     public List<Room> listroom() {
         try {
             return userService.listroom();

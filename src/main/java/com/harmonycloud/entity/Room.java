@@ -1,5 +1,9 @@
 package com.harmonycloud.entity;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+
 import javax.persistence.*;
 /**
  * @author qidong
@@ -8,12 +12,16 @@ import javax.persistence.*;
 
 @Entity
 @Table(name = "room")
+@ApiModel(value = "诊室")
 public class Room {
     @Id
+    @ApiModelProperty(value = "诊室Id",example = "1")
     private Integer roomId;
     @Column(name = "room_name")
+    @ApiModelProperty(value = "诊室名称",example = "roomtest")
     private String roomName;
     @Column(name = "clinic_id")
+    @ApiModelProperty(value = "诊所Id",example = "1")
     private Integer clinicId;
 
     public Room() {

@@ -23,7 +23,7 @@ public class UserRole {
     private String userRoleDesc;
     @Column(name = "role_status")
     private String userRoleStatus;
-    @Column(name = "clinc_id")
+    @Column(name = "clinic_id")
     private Integer clincId;
 
     public UserRole() {
