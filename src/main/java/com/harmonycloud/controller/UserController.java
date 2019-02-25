@@ -15,12 +15,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import javax.validation.constraints.Size;
-import java.util.List;
 import java.util.Map;
 
 @RestController
-@Api(tags = "User")
+@Api(value = "User")
 public class UserController {
     private JwtUtil jwtUtil = new JwtUtil();
     @Autowired
@@ -28,7 +26,7 @@ public class UserController {
 
     @PostMapping(value = "/login")
     @ApiOperation(value = "user", response = UserDto.class, httpMethod = "POST")
-    @ApiImplicitParam(name = "param", value = "param", paramType = "Body", dataType = "Map")
+    @ApiImplicitParam(name = "param", value = "{\"loginname\":\"1\",\"password\":\"1\"}", paramType = "Body", dataType = "Map")
     public Result login(@RequestBody Map<String, String> param) {
         try {
             String loginname = param.get("loginname");
@@ -40,34 +38,33 @@ public class UserController {
         return null;
     }
 
-    @GetMapping(value = "/listclinic")
-
+    @GetMapping(value = "/listClinic")
     @ApiOperation(value = "user", response = Clinic.class, httpMethod = "GET")
-    public Result listclinic() {
+    public Result listClinic() {
         try {
-            return userService.listclincs();
+            return userService.listClinics();
         } catch (Exception e) {
             e.printStackTrace();
         }
         return null;
     }
 
-    @GetMapping(value = "/listencountertype")
+    @GetMapping(value = "/listEncounterType")
     @ApiOperation(value = "user", response = EncounterType.class, httpMethod = "GET")
-    public Result listencountertype() {
+    public Result listEncounterType() {
         try {
-            return userService.listencountertype();
+            return userService.listEncounTertype();
         } catch (Exception e) {
             e.printStackTrace();
         }
         return null;
     }
 
-    @GetMapping(value = "/listroom")
+    @GetMapping(value = "/listRoom")
     @ApiOperation(value = "user", response = Room.class, httpMethod = "GET")
-    public Result listroom() {
+    public Result listRoom() {
         try {
-            return userService.listroom();
+            return userService.listRoom();
         } catch (Exception e) {
             e.printStackTrace();
         }

@@ -7,11 +7,9 @@ import com.harmonycloud.repository.ClinicRepository;
 import com.harmonycloud.repository.EncounterTypeRepository;
 import com.harmonycloud.repository.RoomRepository;
 import com.harmonycloud.repository.UserRepository;
-//import com.harmonycloud.result.CodeMsg;
 import com.harmonycloud.result.CodeMsg;
 import com.harmonycloud.result.Result;
 import com.harmonycloud.util.JwtUtil;
-import io.jsonwebtoken.Jwt;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -61,8 +59,10 @@ public class UserService {
             List<AccessRight> accessRights = new ArrayList<AccessRight>();
 
             for (int i = 0; i < userBos.size(); i++) {
+
                 UserRole userRole = new UserRole(userBos.get(i).getRoleId(), userBos.get(i).getRoleName(),userBos.get(i).getUserRoleDesc(),userBos.get(i).getUserRoleStatus(), userBos.get(i).getClinicId());
                 userRoles.add(userRole);
+
                 AccessRight accessRight = new AccessRight(userBos.get(i).getAccessRightId(),userBos.get(i).getAccessRightType(),userBos.get(i).getAccessRightName());
                 accessRights.add(accessRight);
             }
@@ -79,25 +79,25 @@ public class UserService {
         }
     }
 
-    public Result listclincs() {
+    public Result listClinics() {
         try {
             return Result.buildSuccess(clinicRepository.findAll());
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.error(e.getMessage());
             return Result.buildError(CodeMsg.FAIL);
         }
     }
 
-    public Result listroom() {
+    public Result listRoom() {
         try {
             return Result.buildSuccess(roomRepository.findAll());
         } catch (Exception e) {
-            e.printStackTrace();
+            logger.error(e.getMessage());
             return Result.buildError(CodeMsg.FAIL);
         }
     }
 
-    public Result listencountertype() {
+    public Result listEncounTertype() {
         try {
              return Result.buildSuccess(encounterTypeRepository.findAll());
         } catch (Exception e) {
@@ -106,7 +106,4 @@ public class UserService {
         }
     }
 
-    public static void main(String[] args) {
-//        System.out.println(StringUtil.EncoderByMd5("vicky"));
-    }
 }
