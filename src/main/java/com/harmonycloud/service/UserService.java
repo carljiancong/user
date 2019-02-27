@@ -88,22 +88,40 @@ public class UserService {
         }
     }
 
-    public Result listRoom() {
+    public Result listRoomByCliniciId(Integer clinicId) {
+        List<Room> roomList = null;
         try {
-            return Result.buildSuccess(roomRepository.findAll());
+            roomList=roomRepository.findByClinicId(clinicId);
+            return Result.buildSuccess(roomList);
+        } catch (Exception e) {
+            logger.error(e.getMessage());
+            return Result.buildError(CodeMsg.FAIL);
+        }
+    }
+    public Result listRoom(Integer clinicId,Integer encounterTypeId) {
+        List<Room> roomList = null;
+        try {
+            roomList=roomRepository.listRoom(clinicId,encounterTypeId);
+            return Result.buildSuccess(roomList);
         } catch (Exception e) {
             logger.error(e.getMessage());
             return Result.buildError(CodeMsg.FAIL);
         }
     }
 
-    public Result listEncounTertype() {
+    public Result listEncounterType(Integer clinicId) {
+        List<EncounterType> encounterTypeList = null;
         try {
-             return Result.buildSuccess(encounterTypeRepository.findAll());
+            encounterTypeList = encounterTypeRepository.findByClinicId(clinicId);
+             return Result.buildSuccess(encounterTypeList);
         } catch (Exception e) {
             e.printStackTrace();
             return Result.buildError(CodeMsg.FAIL);
         }
+    }
+
+    public static void main(String[] args){
+        System.out.println(StringUtil.EncoderByMd5("admin"));
     }
 
 }
