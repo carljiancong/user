@@ -30,7 +30,7 @@ public class JwtUtil {
 
     private PublicKey publicKeyObject;
 
-    private long jwtExpirationInSec = 15*60;
+    private long jwtExpirationInSec = 24*60*60;
 
     {
         try {
