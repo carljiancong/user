@@ -102,4 +102,10 @@ public class UserController {
     public String getPublicKey() {
         return jwtUtil.getPublicKey();
     }
+
+    @PostMapping("/refreshToken")
+    public Map<String,Object> refreshToken(String oldToken){
+        return jwtUtil.refreshToken(oldToken);
+    }
+
 }
