@@ -1,6 +1,5 @@
 package com.harmonycloud.util;
 
-import com.harmonycloud.entity.AccessRight;
 import com.harmonycloud.entity.UserRole;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
@@ -30,7 +29,7 @@ public class JwtUtil {
 
     private PublicKey publicKeyObject;
 
-    private long jwtExpirationInSec = 30*60;
+    private long jwtExpirationInSec = 30 * 60;
 
     {
         try {
@@ -47,17 +46,18 @@ public class JwtUtil {
 
     }
 
-    public String generateToken(int userId, String loginName, List<UserRole> userRoles) {
+    public String generateToken(int userId, String englishGivenName, String englishSurName, List<UserRole> userRoles) {
         Date now = new Date();
         Date expiryDate = new Date(now.getTime() + jwtExpirationInSec * 1000);
 
         HashMap<String, Object> claims = new HashMap<>();
         claims.put("userId", userId);
-        claims.put("loginname", loginName);
+        claims.put("givenname", englishGivenName);
+        claims.put("surname", englishSurName);
 
         List<String> roles = new ArrayList<>();
         for (int i = 0; i < userRoles.size(); i++) {
-            if(userRoles.get(i).getUserRoleName().equals("Clerical staff")){
+            if (userRoles.get(i).getUserRoleName().equals("Clerical staff")) {
                 roles.add("ROLE_CLERICAL");
             } else if (userRoles.get(i).getUserRoleName().equals("Clinical staff")) {
                 roles.add("ROLE_CLINICAL");

@@ -67,7 +67,7 @@ public class UserService {
                 accessRights.add(accessRight);
             }
             UserDto userDto = new UserDto(user.getUserId(),user.getEnglishSurname(),user.getEnglishGivenName(),user.getLoginName(),userRoles,accessRights);
-            String token = jwtUtil.generateToken(userDto.getUserId(),userDto.getLoginName(),userDto.getUserRoles());
+            String token = jwtUtil.generateToken(userDto.getUserId(),userDto.getEnglishSurname(),userDto.getEnglishGivenName(),userDto.getUserRoles());
             result.put("user", userDto);
             result.put("token", token);
 
