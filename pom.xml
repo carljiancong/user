@@ -10,7 +10,6 @@
     </parent>
     <groupId>com.harmonycloud</groupId>
     <artifactId>user</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
     <name>user</name>
     <description>Demo project for Spring Boot</description>
 
@@ -104,6 +103,7 @@
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
         </plugins>
+        <finalName>user</finalName>
     </build>
 
 </project>
