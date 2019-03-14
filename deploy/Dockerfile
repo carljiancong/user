@@ -1,7 +1,9 @@
-FROM java:8-jdk-alpine
-WORKDIR /usr/src/app
-COPY target/*.jar ./app.jar
-RUN apk --no-cache add tzdata curl  && \
-    ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime && \
-    echo "Asia/Shanghai" > /etc/timezone
-ENTRYPOINT ["java","-jar","./app.jar", "--port=80"]
+FROM 10.10.103.59/onlineshop/tomcat:8
+RUN rm -rf /usr/local/tomcat/webapps/ROOT/
+RUN groupadd cims
+
+RUN useradd -d /usr/local/cims -g cims -m cims
+RUN chown cims:cims /usr/local/tomcat/bin/catalina.sh
+ADD target/*.war /usr/local/tomcat/webapps
+RUN su cims
+CMD ["/usr/local/tomcat/bin/catalina.sh", "run"]
