@@ -20,19 +20,14 @@ import javax.persistence.Table;
 @ApiModel(value = "userrole")
 public class UserRole {
     @Id
-    @ApiModelProperty(value = "roleid",example = "1")
     private Integer roleId;
     @Column(name = "role_name")
-    @ApiModelProperty(value = "userRoleName",example = "Clerical staff")
     private String userRoleName;
     @Column(name = "role_desc")
-    @ApiModelProperty(value = "userRoleDesc",example = "1")
     private String userRoleDesc;
     @Column(name = "role_status")
-    @ApiModelProperty(value = "userRoleStatus",example = "1")
     private String userRoleStatus;
     @Column(name = "clinic_id")
-    @ApiModelProperty(value = "clinicId",example = "1")
     private Integer clinicId;
 
     public UserRole() {
@@ -86,4 +81,14 @@ public class UserRole {
         this.clinicId = clinicId;
     }
 
+    @Override
+    public String toString() {
+        return "UserRole{" +
+                "roleId=" + roleId +
+                ", userRoleName='" + userRoleName + '\'' +
+                ", userRoleDesc='" + userRoleDesc + '\'' +
+                ", userRoleStatus='" + userRoleStatus + '\'' +
+                ", clinicId=" + clinicId +
+                '}';
+    }
 }

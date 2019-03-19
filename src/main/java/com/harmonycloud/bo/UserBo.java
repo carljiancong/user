@@ -14,7 +14,8 @@ public class UserBo {
     private String accessRightType;
     private String accessRightName;
 
-    public UserBo(Integer userId, String englishSurname, String englishGivenName, String loginName, Integer roleId, String roleName, String userRoleDesc, String userRoleStatus, Integer clinicId, Integer accessRightId, String accessRightType, String accessRightName) {
+    public UserBo(Integer userId, String englishSurname, String englishGivenName, String loginName, Integer roleId, String roleName,
+                  String userRoleDesc, String userRoleStatus, Integer clinicId, Integer accessRightId, String accessRightType, String accessRightName) {
         this.userId = userId;
         this.englishSurname = englishSurname;
         this.englishGivenName = englishGivenName;

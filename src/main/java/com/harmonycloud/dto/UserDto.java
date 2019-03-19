@@ -10,24 +10,24 @@ import java.util.List;
 
 @ApiModel(value = "UserDto")
 public class UserDto {
-    @ApiModelProperty(value = "userid",example = "1")
+    @ApiModelProperty(value = "userid", example = "1")
     private Integer userId;
-    @ApiModelProperty(value = "englishSurname",example = "a")
+    @ApiModelProperty(value = "englishSurname", example = "a")
     private String englishSurname;
-    @ApiModelProperty(value = "englishGivenName",example = "a")
+    @ApiModelProperty(value = "englishGivenName", example = "a")
     private String englishGivenName;
-    @ApiModelProperty(value = "loginName",example = "a")
+    @ApiModelProperty(value = "loginName", example = "a")
     private String loginName;
-    private List<UserRole> userRoles;
-    private List<AccessRight> accessRights;
+    private List<UserRole> userRoleList;
+    private List<AccessRight> accessRightList;
 
-    public UserDto(Integer userId, String englishSurname, String englishGivenName, String loginName, List<UserRole> userRoles, List<AccessRight> accessRights) {
+    public UserDto(Integer userId, String englishSurname, String englishGivenName, String loginName, List<UserRole> userRoleList, List<AccessRight> accessRightList) {
         this.userId = userId;
         this.englishSurname = englishSurname;
         this.englishGivenName = englishGivenName;
         this.loginName = loginName;
-        this.userRoles = userRoles;
-        this.accessRights = accessRights;
+        this.userRoleList = userRoleList;
+        this.accessRightList = accessRightList;
     }
 
     public Integer getUserId() {
@@ -62,19 +62,19 @@ public class UserDto {
         this.loginName = loginName;
     }
 
-    public List<UserRole> getUserRoles() {
-        return userRoles;
+    public List<UserRole> getUserRoleList() {
+        return userRoleList;
     }
 
-    public void setUserRoles(List<UserRole> userRoles) {
-        this.userRoles = userRoles;
+    public void setUserRoleList(List<UserRole> userRoleList) {
+        this.userRoleList = userRoleList;
     }
 
-    public List<AccessRight> getAccessRights() {
-        return accessRights;
+    public List<AccessRight> getAccessRightList() {
+        return accessRightList;
     }
 
-    public void setAccessRights(List<AccessRight> accessRights) {
-        this.accessRights = accessRights;
+    public void setAccessRightList(List<AccessRight> accessRightList) {
+        this.accessRightList = accessRightList;
     }
 }

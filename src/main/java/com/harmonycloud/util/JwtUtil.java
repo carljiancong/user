@@ -65,6 +65,7 @@ public class JwtUtil {
                 roles.add("ROLE_ADMIN");
             }
         }
+
         claims.put("roles", roles);
 
         return Jwts.builder().setClaims(claims).setSubject(String.valueOf(userId)).setIssuedAt(new Date()).setExpiration(expiryDate)

@@ -11,13 +11,10 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name = "encounter_type")
-@ApiModel(value = "服务类型")
 public class EncounterType {
     @Id
-    @ApiModelProperty(value = "服务类型Id",example = "1")
     private Integer encounterTypeId;
     @Column(name = "encounter_type")
-    @ApiModelProperty(value = "服务类型名称",example = "encountertypetest")
     private String encounterType;
 
     public EncounterType() {

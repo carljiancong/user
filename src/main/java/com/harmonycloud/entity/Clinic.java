@@ -11,13 +11,10 @@ import javax.persistence.*;
  */
 @Entity
 @Table(name = "clinic")
-@ApiModel(value = "诊所")
 public class Clinic {
     @Id
-    @ApiModelProperty(value = "诊所Id",name="clinicid",example = "1")
     private Integer clinicId;
     @Column(name = "clinic_name")
-    @ApiModelProperty(value = "诊所名称",name="clinicname",example = "clinictest")
     private String clinicName;
 
     public Clinic() {
