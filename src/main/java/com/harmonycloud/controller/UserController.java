@@ -1,7 +1,5 @@
 package com.harmonycloud.controller;
 
-
-import com.harmonycloud.dto.UserDto;
 import com.harmonycloud.entity.Clinic;
 import com.harmonycloud.entity.EncounterType;
 import com.harmonycloud.entity.Room;
@@ -11,6 +9,8 @@ import com.harmonycloud.result.CimsResponseWrapper;
 import com.harmonycloud.service.UserService;
 import com.harmonycloud.util.JwtUtil;
 import io.swagger.annotations.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -20,7 +20,9 @@ import java.util.Map;
 @RestController
 @Api(value = "User")
 public class UserController {
+
     private JwtUtil jwtUtil = new JwtUtil();
+
     @Autowired
     private UserService userService;
 
@@ -32,9 +34,10 @@ public class UserController {
      * @return
      */
     @PostMapping(value = "/login")
-    @ApiOperation(value = "login",  httpMethod = "POST")
+    @ApiOperation(value = "login", httpMethod = "POST")
     @ApiImplicitParam(name = "param", value = "{\"loginname\":\"1\",\"password\":\"1\"}", paramType = "Body", dataType = "Map")
     public CimsResponseWrapper login(@RequestBody Map<String, String> param) throws Exception {
+
         if (param.get("loginname") == null || param.get("password") == null) {
             throw new UserException(ErrorMsgEnum.PARAMETER_ERROR.getMessage());
         }

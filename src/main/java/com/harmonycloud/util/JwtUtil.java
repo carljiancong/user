@@ -1,10 +1,12 @@
 package com.harmonycloud.util;
 
+import com.harmonycloud.dto.Log;
 import com.harmonycloud.entity.UserRole;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
 
 import javax.servlet.http.HttpServletRequest;
@@ -29,7 +31,13 @@ public class JwtUtil {
 
     private PublicKey publicKeyObject;
 
+    private String msg;
+
+    @Autowired
+    HttpServletRequest request;
+
     private long jwtExpirationInSec = 30 * 60;
+
 
     {
         try {
@@ -47,6 +55,7 @@ public class JwtUtil {
     }
 
     public String generateToken(int userId, String englishGivenName, String englishSurName, List<UserRole> userRoles) {
+
         Date now = new Date();
         Date expiryDate = new Date(now.getTime() + jwtExpirationInSec * 1000);
 
@@ -67,7 +76,6 @@ public class JwtUtil {
         }
 
         claims.put("roles", roles);
-
         return Jwts.builder().setClaims(claims).setSubject(String.valueOf(userId)).setIssuedAt(new Date()).setExpiration(expiryDate)
                 .signWith(privateKeyObject).compact();
     }
@@ -81,10 +89,14 @@ public class JwtUtil {
     }
 
     public Map<String, Object> refreshToken(String oldToken) {
+        msg = LogUtil.getRequest(request) + ", information='";
+
         Map<String, Object> result = new HashMap<>();
         try {
             Claims claims = Jwts.parser().setSigningKey(publicKeyObject).parseClaimsJws(oldToken).getBody();
             String refreshToken = generateTokenByClaim(claims);
+            logger.info(msg + "refresh token success '");
+
             result.put("refresh", true);
             result.put("data", refreshToken);
         } catch (Exception e) {
@@ -94,10 +106,11 @@ public class JwtUtil {
         return result;
     }
 
-    public String getUserIdFromRequest(HttpServletRequest request) {
-        if (request != null) {
-            String bearerToken = request.getHeader("Authorization");
-            logger.info("request token is :{}", bearerToken);
+    public String getUserIdFromRequest(HttpServletRequest requests) {
+        msg = LogUtil.getRequest(requests) + ", information='";
+        if (requests != null) {
+            String bearerToken = requests.getHeader("Authorization");
+            logger.info(msg + "request token is :{}", bearerToken + "'");
 
             if (StringUtils.hasText(bearerToken) && bearerToken.startsWith("Bearer ")) {
                 String jwt = bearerToken.substring(7, bearerToken.length());
