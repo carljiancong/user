@@ -7,7 +7,6 @@ import java.util.UUID;
 
 public class LogUtil {
 
-
     public static String getRequest(HttpServletRequest request) {
         if (request != null) {
             String ip = IpUtil.getIpAddress(request);
