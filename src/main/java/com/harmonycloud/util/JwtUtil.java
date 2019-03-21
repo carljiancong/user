@@ -1,6 +1,5 @@
 package com.harmonycloud.util;
 
-import com.harmonycloud.dto.Log;
 import com.harmonycloud.entity.UserRole;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
@@ -54,7 +53,7 @@ public class JwtUtil {
 
     }
 
-    public String generateToken(int userId, String englishGivenName, String englishSurName, List<UserRole> userRoles) {
+    public  String generateToken(int userId, String englishGivenName, String englishSurName, List<UserRole> userRoles) {
 
         Date now = new Date();
         Date expiryDate = new Date(now.getTime() + jwtExpirationInSec * 1000);

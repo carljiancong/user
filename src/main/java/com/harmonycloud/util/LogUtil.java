@@ -1,6 +1,6 @@
 package com.harmonycloud.util;
 
-import com.harmonycloud.dto.Log;
+import com.harmonycloud.log.Log;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.UUID;

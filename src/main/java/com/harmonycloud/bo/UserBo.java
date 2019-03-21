@@ -1,18 +1,33 @@
 package com.harmonycloud.bo;
 
 public class UserBo {
+
     private Integer userId;
+
     private String englishSurname;
+
     private String englishGivenName;
+
     private String loginName;
+
     private Integer roleId;
+
     private String roleName;
+
     private String userRoleDesc;
+
     private String userRoleStatus;
+
     private Integer clinicId;
+
     private Integer accessRightId;
+    //权限类型
     private String accessRightType;
+    //权限名称
     private String accessRightName;
+
+    public UserBo() {
+    }
 
     public UserBo(Integer userId, String englishSurname, String englishGivenName, String loginName, Integer roleId, String roleName,
                   String userRoleDesc, String userRoleStatus, Integer clinicId, Integer accessRightId, String accessRightType, String accessRightName) {

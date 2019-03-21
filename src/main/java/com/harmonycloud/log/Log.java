@@ -1,4 +1,4 @@
-package com.harmonycloud.dto;
+package com.harmonycloud.log;
 
 public class Log {
     private String clientIp;
