@@ -1,14 +1,8 @@
 package com.harmonycloud.entity;
 
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-
 import javax.persistence.*;
 
-/**
- * @author qidong
- * @date 2019/2/13
- */
+
 @Entity
 @Table(name = "clinic")
 public class Clinic {

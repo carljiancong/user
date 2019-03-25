@@ -30,7 +30,8 @@ public class UserBo {
     }
 
     public UserBo(Integer userId, String englishSurname, String englishGivenName, String loginName, Integer roleId, String roleName,
-                  String userRoleDesc, String userRoleStatus, Integer clinicId, Integer accessRightId, String accessRightType, String accessRightName) {
+                  String userRoleDesc, String userRoleStatus, Integer clinicId, Integer accessRightId, String accessRightType,
+                  String accessRightName) {
         this.userId = userId;
         this.englishSurname = englishSurname;
         this.englishGivenName = englishGivenName;

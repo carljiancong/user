@@ -1,14 +1,8 @@
 package com.harmonycloud.entity;
 
-import io.swagger.annotations.Api;
-
 import javax.persistence.*;
 
 
-/**
- * @author qidong
- * @date 2019/2/13
- */
 @Entity
 @Table(name = "cims_user")
 

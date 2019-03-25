@@ -1,6 +1,5 @@
 package com.harmonycloud.entity;
 
-
 import javax.persistence.*;
 
 @Entity

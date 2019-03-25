@@ -1,20 +1,26 @@
 package com.harmonycloud.controller;
 
-import com.harmonycloud.bo.UserBo;
 import com.harmonycloud.dto.UserDto;
 import com.harmonycloud.entity.*;
+import com.harmonycloud.entity.AccessRight;
 import com.harmonycloud.enums.ErrorMsgEnum;
 import com.harmonycloud.exception.UserException;
 import com.harmonycloud.result.CimsResponseWrapper;
 import com.harmonycloud.service.UserService;
 import com.harmonycloud.util.JwtUtil;
-import io.swagger.annotations.*;
 
+
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiImplicitParam;
+import io.swagger.annotations.ApiImplicitParams;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+
 import java.util.HashMap;
 import java.util.List;
+
 import java.util.Map;
 
 @RestController
@@ -32,7 +38,8 @@ public class UserController {
      * user login
      *
      * @param param loginname and password
-     * @return
+     * @return CimsResponseWrapper
+     * @throws Exception
      */
     @PostMapping(value = "/login")
     @ApiOperation(value = "login", httpMethod = "POST")
@@ -59,7 +66,8 @@ public class UserController {
     /**
      * get all clinic
      *
-     * @return
+     * @return CimsResponseWrapper
+     * @throws Exception
      */
     @GetMapping(value = "/listClinic")
     @ApiOperation(value = "list clinic", response = Clinic.class, httpMethod = "GET")
@@ -72,7 +80,8 @@ public class UserController {
      * get all type of encounter  in this clinic
      *
      * @param clinicId clinicId
-     * @return
+     * @return CimsResponseWrapper
+     * @throws Exception
      */
     @GetMapping(value = "/listEncounterType")
     @ApiOperation(value = "list encounterType by clinicId", response = EncounterType.class, httpMethod = "GET")
@@ -91,7 +100,8 @@ public class UserController {
      * in attendance page ,list room by clinicId
      *
      * @param clinicId clinicId
-     * @return
+     * @return CimsResponseWrapper
+     * @throws Exception
      */
     @GetMapping(value = "/getRoomList")
     @ApiOperation(value = "list room by clinicId", response = Room.class, httpMethod = "GET")
@@ -109,7 +119,8 @@ public class UserController {
      *
      * @param clinicId        clinicId
      * @param encounterTypeId encounterTypeId
-     * @return
+     * @return CimsResponseWrapper
+     * @throws Exception
      */
     @GetMapping(value = "/listRoom")
     @ApiOperation(value = "list room by clinicId and encounterTypeId", response = Room.class, httpMethod = "GET")
@@ -124,16 +135,17 @@ public class UserController {
         }
         List<Room> roomList = userService.listRoom(clinicId, encounterTypeId);
 
-        return new CimsResponseWrapper<List>(true, null, roomList);
+        return new CimsResponseWrapper<>(true, null, roomList);
     }
 
     /**
      * get jwt public key
      *
-     * @return public key
+     * @return String
+     * @throws Exception
      */
     @GetMapping("/publicKey")
-    public String getPublicKey() {
+    public String getPublicKey() throws Exception {
         return jwtUtil.getPublicKey();
     }
 
@@ -144,7 +156,7 @@ public class UserController {
      * @return token
      */
     @PostMapping("/refreshToken")
-    public Map<String, Object> refreshToken(String oldToken) {
+    public Map<String, Object> refreshToken(String oldToken) throws Exception {
         return jwtUtil.refreshToken(oldToken);
     }
 

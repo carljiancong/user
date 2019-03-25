@@ -24,7 +24,8 @@ public class UserDto {
     public UserDto() {
     }
 
-    public UserDto(Integer userId, String englishSurname, String englishGivenName, String loginName, List<UserRole> userRoleList, List<AccessRight> accessRightList) {
+    public UserDto(Integer userId, String englishSurname, String englishGivenName, String loginName,
+                   List<UserRole> userRoleList, List<AccessRight> accessRightList) {
         this.userId = userId;
         this.englishSurname = englishSurname;
         this.englishGivenName = englishGivenName;

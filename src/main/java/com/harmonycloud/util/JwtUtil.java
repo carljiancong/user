@@ -33,7 +33,7 @@ public class JwtUtil {
     private String msg;
 
     @Autowired
-    HttpServletRequest request;
+    private HttpServletRequest request;
 
     private long jwtExpirationInSec = 30 * 60;
 
@@ -53,7 +53,7 @@ public class JwtUtil {
 
     }
 
-    public  String generateToken(int userId, String englishGivenName, String englishSurName, List<UserRole> userRoles) {
+    public String generateToken(int userId, String englishGivenName, String englishSurName, List<UserRole> userRoles) {
 
         Date now = new Date();
         Date expiryDate = new Date(now.getTime() + jwtExpirationInSec * 1000);
@@ -118,6 +118,7 @@ public class JwtUtil {
         }
         return null;
     }
+
 
     public Map<String, Object> getClaimsFromJWT(String jwt) {
         try {

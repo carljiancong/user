@@ -1,23 +1,12 @@
 package com.harmonycloud.entity;
 
-
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-/**
- * @author qidong
- * @date 2019/2/13
- */
-
-
 @Entity
 @Table(name = "role")
-@ApiModel(value = "userrole")
 public class UserRole {
     @Id
     private Integer roleId;

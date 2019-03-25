@@ -1,8 +1,5 @@
 package com.harmonycloud.entity;
 
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-
 import javax.persistence.*;
 
 @Entity
@@ -17,6 +14,7 @@ public class AccessRight {
 
     public AccessRight() {
     }
+
     public AccessRight(Integer accessRightId, String accessRightType, String accessRightName) {
         this.accessRightId = accessRightId;
         this.accessRightType = accessRightType;

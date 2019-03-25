@@ -14,6 +14,7 @@ public class RoleAccessRight {
 
     public RoleAccessRight() {
     }
+
     public RoleAccessRight(Integer roleAccessRightId, Integer roleId, Integer accessRightId) {
         this.roleAccessRightId = roleAccessRightId;
         this.roleId = roleId;

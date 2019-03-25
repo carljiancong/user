@@ -44,7 +44,8 @@ public class UserService {
      *
      * @param loginname loginname
      * @param password  password
-     * @return userBoList
+     * @return User
+     * @throws Exception
      */
     public User login(String loginname, String password) throws Exception {
         String msg = LogUtil.getRequest(request) + ", information='";
@@ -67,8 +68,8 @@ public class UserService {
     /**
      * get the user accessright
      *
-     * @param user
-     * @return
+     * @param user model
+     * @return Map
      * @throws Exception
      */
     public Map<String, Object> getAccessRight(User user) throws Exception {
@@ -89,11 +90,10 @@ public class UserService {
         return result;
     }
 
-
     /**
      * get all clinic
      *
-     * @return clinicList
+     * @return List
      * @throws Exception
      */
     public List<Clinic> listClinics() throws Exception {
@@ -104,7 +104,8 @@ public class UserService {
      * get all room in this clinic
      *
      * @param clinicId clinicId
-     * @return roomList
+     * @return
+     * @throws Exception
      */
     public List<Room> listRoomByCliniciId(Integer clinicId) throws Exception {
         String msg = LogUtil.getRequest(request) + ", information='";
