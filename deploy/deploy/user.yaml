@@ -1,0 +1,91 @@
+apiVersion: apps.openshift.io/v1
+kind: DeploymentConfig
+metadata:
+  labels:
+    app: user
+  name: user
+  namespace: dhcims-msapoc-dev
+spec:
+  replicas: 1
+  revisionHistoryLimit: 10
+  selector:
+    app: user
+    deploymentconfig: user
+  strategy:
+    activeDeadlineSeconds: 21600
+    resources: {}
+    rollingParams:
+      intervalSeconds: 1
+      maxSurge: 25%
+      maxUnavailable: 25%
+      timeoutSeconds: 600
+      updatePeriodSeconds: 1
+    type: Rolling
+  template:
+    metadata:
+      labels:
+        app: user
+        deploymentconfig: user
+    spec:
+      containers:
+        - env:
+            - name: APPLICATION_PROPERTIES
+              valueFrom:
+                configMapKeyRef:
+                  key: application.properties
+                  name: user-config
+            - name: LOG4J_PROPERTIES
+              valueFrom:
+                configMapKeyRef:
+                  key: log4j.properties
+                  name: user-logs
+          image: >-
+            docker-registry.default.svc:5000/dhcims-msapoc-dev/user:<tag>
+          imagePullPolicy: Always
+          name: user
+          ports:
+            - containerPort: 8080
+              protocol: TCP
+            - containerPort: 8443
+              protocol: TCP
+            - containerPort: 8778
+              protocol: TCP
+            - containerPort: 80
+              protocol: TCP              
+          resources: {}
+          terminationMessagePath: /dev/termination-log
+          terminationMessagePolicy: File
+          volumeMounts:
+            - mountPath: /opt/webserver/lib/application.properties
+              name: user-config-volume
+              subPath: application.properties
+            - mountPath: /opt/webserver/lib/log4j.properties
+              name: user-log-volume
+              subPath: log4j.properties
+      dnsPolicy: ClusterFirst
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext: {}
+      terminationGracePeriodSeconds: 30
+      volumes:
+        - configMap:
+            defaultMode: 420
+            name: user-config
+          name: user-config-volume
+        - configMap:
+            defaultMode: 420
+            name: user-logs
+          name: user-log-volume
+  test: false
+  triggers:
+    - type: ConfigChange
+    - imageChangeParams:
+        automatic: true
+        containerNames:
+          - user
+        from:
+          kind: ImageStreamTag
+          name: 'user:<tag>'
+          namespace: dhcims-msapoc-dev
+      type: ImageChange
+
