@@ -30,7 +30,6 @@ public class JwtUtil {
 
     private PublicKey publicKeyObject;
 
-    private String msg;
 
     @Autowired
     private HttpServletRequest request;
@@ -88,16 +87,15 @@ public class JwtUtil {
     }
 
     public Map<String, Object> refreshToken(String oldToken) {
-        msg = LogUtil.getRequest(request) + ", information='";
+        String msg = LogUtil.getRequest(request) + ", information='";
 
         Map<String, Object> result = new HashMap<>();
         try {
             Claims claims = Jwts.parser().setSigningKey(publicKeyObject).parseClaimsJws(oldToken).getBody();
             String refreshToken = generateTokenByClaim(claims);
-            logger.info(msg + "refresh token success '");
-
             result.put("refresh", true);
             result.put("data", refreshToken);
+            logger.info(msg + "refresh token success '");
         } catch (Exception e) {
             result.put("refresh", false);
             result.put("data", null);
@@ -106,7 +104,7 @@ public class JwtUtil {
     }
 
     public String getUserIdFromRequest(HttpServletRequest requests) {
-        msg = LogUtil.getRequest(requests) + ", information='";
+        String msg = LogUtil.getRequest(requests) + ", information='";
         if (requests != null) {
             String bearerToken = requests.getHeader("Authorization");
             logger.info(msg + "request token is :{}", bearerToken + "'");
